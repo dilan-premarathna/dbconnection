@@ -38,9 +38,9 @@ service /KeyplexoLenovoClient on new http:Listener(9090) {
     //Single endpoint for all incoming message types
     resource function get result() returns json|error|sql:ExecutionResult {
         io:println("Resource invocke ");
-        sql:ParameterizedQuery query = `SELECT * FROM TempTestTable`;
+        sql:ParameterizedQuery query = `select * from TempTestTable where student_id=1`;
         io:println("Query: ", query);
-        sql:ExecutionResult result = check mdhEndpoint->execute(query);
+        sql:ExecutionResult result = check mdhEndpoint->queryRow(query);
         io:print("result: ", result);
         return result;
     }
